@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "pokemon-3038c",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

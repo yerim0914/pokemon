@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/index.css">
+    <script src="./index.js"></script>
+    <script src="./prevButton.js"></script>
+    <script src="./detailPage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+        <div class="header">
+            <div class="title">Pokemon</div>
+        </div>
+        <div class="search_wrapper">
+            <input class="search_text">
+            <button class="search_button" onclick="search()">검색</button>
+        </div>
+        <div class="list_wrapper">
+            <div id="pokemon_list" class="pokemon_list"></div>
+        </div>
+    </div>
+    <div class="detail_wrapper" id="detail_wrapper">
+        <div class="detail_header">
+            <button class="previous" onclick="prevPage()"></button>
+        </div>
+        <div class="description_wrapper">
+            <img alt="" id="pkimg" class="pkimg">
+            <div id="dId" class="dId"></div>
+            <div id="detailName" class="detailName"></div>
+            <div class="des">
+            <div class="typeWrapper">
+                <span class="typeTitle">타입</span>
+                <div id="type" class="type"></div>
+            </div>
+            <div class="heightWrapper">
+                <span class="heightTitle">키</span>
+                <div id="height" class="height"></div>
+            </div>
+            <div class="weightWrapper">
+                <span class="weightTitle">무게</span>
+                <div id="weight" class="wegith"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <footer>@개인 프로젝트 용도로 만들어졌습니다.</footer>
+</body>
+</html>
