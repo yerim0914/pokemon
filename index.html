@@ -7,6 +7,7 @@
     <script src="./prevButton.js"></script>
     <script src="./detailPage.js"></script>
     <script src="scroll.js"></script>
+    <script src="search.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
@@ -15,16 +16,16 @@
             <div class="title">Pokemon</div>
         </div>
         <div class="search_wrapper">
-            <input class="search_text">
-            <button class="search_button" onclick="search()">검색</button>
+            <input class="search_text" id="search_text">
+            <button class="search_button" id="search" onclick="search()">검색</button>
         </div>
         <div class="list_wrapper">
             <div id="pokemon_list" class="pokemon_list"></div>
         </div>
     </div>
-    <div class="loading_page" id="loading_page">
+    <!-- <div class="loading_page" id="loading_page">
         <img alt="" src="image/spinner.gif">
-    </div>
+    </div> -->
     <div class="detail_wrapper" id="detail_wrapper">
         <div class="detail_header">
             <button class="previous" onclick="prevPage()"></button>
@@ -49,6 +50,5 @@
         </div>
         </div>
     </div>
-    <!-- <footer>@개인 프로젝트 용도로 만들어졌습니다.</footer> -->
 </body>
 </html>
