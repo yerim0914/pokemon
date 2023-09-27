@@ -34,8 +34,8 @@ async function loadPokemon(id) {
 
 async function setData(id) {
     return new Promise(()=>{
-        const detail_wrapper = document.getElementById('detail_wrapper');
-        const name = document.getElementById('detailName');
+        const loading_page = document.getElementById('loading_page');
+        const name = document.getElementById('detail_name');
         const type = document.getElementById('type');
         const image = document.getElementById('pkimg');
         const weight = document.getElementById('weight');
@@ -43,31 +43,29 @@ async function setData(id) {
         const dId = document.getElementById('dId');
         type.innerText = ''
         name.innerText = ''
-        // 로딩페이지 다시 구현
-        // const loading = document.createElement("div");
-        // loading.setAttribute("class", "loading_img");
-        // loading.setAttribute("id", "loading_img")
-        // const img = document.createElement("img");
-        // img.src = "../image/spinner-solid.svg"
-        // img.style.width = "400px"
-        // loading.appendChild(img);
-        // detail_wrapper.append(loading);
+
+        // 로딩페이지
+        loading_page.style.display = 'flex';
+        loading_page.style.width = '100%';
+        loading_page.style.height = '100%';
+        loading_page.style.zIndex = 1;
+
+
         setTimeout(()=>{
+            loading_page.style.display = 'none';
             image.src = pokemonList[id - 1].img
             image.style.width = "400px"
             image.style.height = "400px"
-            // const load = document.getElementById("loading_img");
-            // load.remove();
+
             const des = document.getElementById('des');
             name.innerHTML = koreanNames[id - 1];
             for (let typeName of koreanTypeName) {
-                // type.style.background = url("../image/grass.png")
                 type.innerText += typeName + `,`;
             }
             dId.innerText = `No.`+ id;
             type.innerText = type.innerText.slice(0, -1)
             height.innerText = spec.weight;
             weight.innerText = spec.height;
-        }, 2000);
+        }, 1000);
     })
 }

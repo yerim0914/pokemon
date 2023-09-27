@@ -4,20 +4,17 @@ let pokemonDetail = undefined;
 async function callList() {
     let page = 1;
     try {
-        while(page !== 2) {
-            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${page}`);
-            const data = response.data.results;
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=150&offset=${page}`);
+        const data = response.data.results;
             
-            pokemonList = data.map((pokemon, index) => {
-                return {
-                    id: index + 1,
-                    name: koreanNames[index],
-                    // img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
-                    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
-                }
-            })
-            page += 1;
-        }
+        pokemonList = data.map((pokemon, index) => {
+            return {
+                id: index + 1,
+                name: koreanNames[index],
+                img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
+            }
+        })
+        page += 1;
         createGallery();
     } catch (error) {
       console.log('끝')
@@ -36,7 +33,7 @@ const createGallery = () => {
         name.innerText = pokemonList[i].name;
 
         const div = document.createElement("div");
-        div.setAttribute("class", "img");
+        div.setAttribute("class", `pokemon`);
 
         const img = document.createElement("img");
         img.src = pokemonList[i].img;
@@ -74,7 +71,7 @@ const createGallery = () => {
 let ability = [];
 const urls = [];
 
-for (let i = 0 ; i < 20; i++) {
+for (let i = 0 ; i < 150; i++) {
     // let url = `https://pokeapi.co/api/v2/ability/${id + 1}/`
     let url = `https://pokeapi.co/api/v2/pokemon-species/${i + 1}`;
     urls.push(url);

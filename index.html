@@ -6,6 +6,7 @@
     <script src="./index.js"></script>
     <script src="./prevButton.js"></script>
     <script src="./detailPage.js"></script>
+    <script src="scroll.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
@@ -21,6 +22,9 @@
             <div id="pokemon_list" class="pokemon_list"></div>
         </div>
     </div>
+    <div class="loading_page" id="loading_page">
+        <img alt="" src="image/spinner.gif">
+    </div>
     <div class="detail_wrapper" id="detail_wrapper">
         <div class="detail_header">
             <button class="previous" onclick="prevPage()"></button>
@@ -28,23 +32,23 @@
         <div class="description_wrapper">
             <img alt="" id="pkimg" class="pkimg">
             <div id="dId" class="dId"></div>
-            <div id="detailName" class="detailName"></div>
+            <div id="detail_name" class="detail_name"></div>
             <div class="des">
-            <div class="typeWrapper">
-                <span class="typeTitle">타입</span>
+            <div class="type_wrapper">
+                <span class="type_title">타입</span>
                 <div id="type" class="type"></div>
             </div>
-            <div class="heightWrapper">
-                <span class="heightTitle">키</span>
+            <div class="height_wrapper">
+                <span class="height_title">키</span>
                 <div id="height" class="height"></div>
             </div>
-            <div class="weightWrapper">
-                <span class="weightTitle">무게</span>
+            <div class="weight_wrapper">
+                <span class="weight_title">무게</span>
                 <div id="weight" class="wegith"></div>
             </div>
         </div>
         </div>
     </div>
-    <footer>@개인 프로젝트 용도로 만들어졌습니다.</footer>
+    <!-- <footer>@개인 프로젝트 용도로 만들어졌습니다.</footer> -->
 </body>
 </html>
