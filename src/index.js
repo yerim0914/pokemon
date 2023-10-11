@@ -54,6 +54,7 @@ const createGallery = () => {
 let page = 0;
 
 /** 첫 페이지 수행 */
+pokemonList.length = 0;
 callList();
 
 
@@ -69,14 +70,16 @@ async function callList() {
     try {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=30&offset=${page}`);
         const data = response.data.results;
-     
-        pokemonList = await Promise.all(data.map(async (pokemon, index) => {
+
+        await Promise.all(data.map(async (pokemon, index) => {
             let rId = 30 * page + index;
-            return {
-                id: rId + 1,
-                name: await callName(rId),
-                img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${rId+1}.png`
-            }
+            pokemonList.push(
+                {
+                    id: rId + 1,
+                    name: await callName(rId),
+                    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${rId+1}.png`
+                }
+            )
         }))
         page += 1;
         createGallery();

@@ -42,7 +42,9 @@ async function setData(id, pokemonList) {
         const dId = document.getElementById('dId');
         type.innerText = ''
         name.innerText = ''
-
+        image.src = ''
+        height.innerText = ''
+        weight.innerText = ''
 
         setTimeout(()=>{
 
@@ -53,12 +55,12 @@ async function setData(id, pokemonList) {
             detail_wrapper.style.visibility = 'visible';
 
             // loading_page.style.display = 'none';
-            image.src = pokemonList[id].img;
+            image.src = pokemonList[id - 1].img;
             image.style.width = "400px"
             image.style.height = "400px"
 
             const des = document.getElementById('des');
-            name.innerHTML = pokemonList[id].name;
+            name.innerHTML = pokemonList[id - 1].name;
             for (let typeName of koreanTypeName) {
                 type.innerText += typeName + `,`;
             }
