@@ -1,3 +1,4 @@
+
 let pokemonList = undefined;
 let pokemonDetail = undefined;
 
@@ -62,7 +63,7 @@ for (let i = 0 ; i < 500; i++) {
 let requests = urls.map(url => fetch(url));
 let koreanNames = [];
 let koreanTypeNames = [];
-
+let page = 0;
 Promise.all(requests)
     .then((responses) => Promise.all(responses.map(res => res.json())))
     .then(results => {
@@ -70,13 +71,21 @@ Promise.all(requests)
             const koreanName = result.names.find((name) => name.language.name === "ko");
             koreanNames.push(koreanName.name);
         }
-
+        // 첫 페이지
         callList()
 })
 
+window.addEventListener('scroll', () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 10) {
+        fetchData();
+    }
+});
+
+
 async function callList() {
     try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=500&offset=${0}`);
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=30&offset=${page}`);
         const data = response.data.results;
                 
         pokemonList = data.map((pokemon, index) => {
@@ -86,6 +95,7 @@ async function callList() {
                 img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
             }
         })
+        page += 1;
         createGallery();
     } catch (error) {
         console.log('끝')
