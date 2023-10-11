@@ -1,5 +1,4 @@
 
-let pokemonList = [];
 let pokemonDetail = [];
 let page = 0;
 
@@ -100,3 +99,8 @@ async function callName(rId) {
     koreanName = response_name.data.names.find((name) => name.language.name === "ko").name;
     return koreanName;
 }
+
+
+// async function search() {
+//     pokemonList
+// }
