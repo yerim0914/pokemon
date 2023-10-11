@@ -1,6 +1,6 @@
 
-let pokemonList = undefined;
-let pokemonDetail = undefined;
+let pokemonList = [];
+let pokemonDetail = [];
 
 /** 포켓몬스터 갤러리 */
 const createGallery = () => {
@@ -30,7 +30,7 @@ const createGallery = () => {
         div.style.alignItems = "center"
         
         div.onclick = () => {
-            detailPageClick(pokemonList[i].id);
+            detailPageClick(pokemonList[i].id, pokemonList);
         }
         div.onmouseover = () => {
             div.style.translate = "0 -20px"
@@ -51,34 +51,16 @@ const createGallery = () => {
     }
 }
 
-let ability = [];
-const urls = [];
-
-for (let i = 0 ; i < 500; i++) {
-    // let url = `https://pokeapi.co/api/v2/ability/${id + 1}/`
-    let url = `https://pokeapi.co/api/v2/pokemon-species/${i + 1}`;
-    urls.push(url);
-}
-
-let requests = urls.map(url => fetch(url));
-let koreanNames = [];
-let koreanTypeNames = [];
 let page = 0;
-Promise.all(requests)
-    .then((responses) => Promise.all(responses.map(res => res.json())))
-    .then(results => {
-        for (let result of results) {
-            const koreanName = result.names.find((name) => name.language.name === "ko");
-            koreanNames.push(koreanName.name);
-        }
-        // 첫 페이지
-        callList()
-})
+
+/** 첫 페이지 수행 */
+callList();
+
 
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight - 10) {
-        fetchData();
+        callList();
     }
 });
 
@@ -87,14 +69,15 @@ async function callList() {
     try {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=30&offset=${page}`);
         const data = response.data.results;
-                
-        pokemonList = data.map((pokemon, index) => {
+     
+        pokemonList = await Promise.all(data.map(async (pokemon, index) => {
+            let rId = 30 * page + index;
             return {
-                id: index + 1,
-                name: koreanNames[index],
-                img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
+                id: rId + 1,
+                name: await callName(rId),
+                img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${rId+1}.png`
             }
-        })
+        }))
         page += 1;
         createGallery();
     } catch (error) {
@@ -103,4 +86,9 @@ async function callList() {
 };
 
 
-
+async function callName(rId) {
+    const response_name = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${rId + 1}`);
+    let koreanName;
+    koreanName = response_name.data.names.find((name) => name.language.name === "ko").name;
+    return koreanName;
+}

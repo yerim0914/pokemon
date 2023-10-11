@@ -3,7 +3,7 @@
 <head>
     <title>Document</title>
     <link rel="stylesheet" href="src/style/index.css">
-    <!-- <script type="module" src="src/index.js"></script> -->
+    <script type="module" src="src/index.js"></script>
     <script src="src/prevButton.js"></script>
     <script src="src/detailPage.js"></script>
     <script src="src/scroll.js"></script>
@@ -11,7 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <script src="dist/bundle.js"></script>
+    
+    <!-- <script src="dist/bundle.js"></script> -->
     <div class="wrapper" id="wrapper">
         <div class="header">
             <div class="title">Pokemon</div>
@@ -24,9 +25,6 @@
             <div id="pokemon_list" class="pokemon_list"></div>
         </div>
     </div>
-    <!-- <div class="loading_page" id="loading_page">
-        <img alt="" src="image/spinner.gif">
-    </div> -->
     <div class="detail_wrapper" id="detail_wrapper">
         <div class="detail_header">
             <button class="previous" onclick="prevPage()"></button>

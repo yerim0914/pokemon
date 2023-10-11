@@ -1,15 +1,15 @@
 let koreanTypeName = [];
 
 /** 포켓몬 상세 페이지 */
-async function detailPageClick(id) {
+async function detailPageClick(id, pokemonList) {
     /* 페이지 전환 */
     koreanTypeName.length = 0;
 
     await loadPokemon(id)
-    await setData(id);
-    
+    await setData(id, pokemonList);
     
 }
+
 let spec;
 async function loadPokemon(id) {
     try {
@@ -32,7 +32,7 @@ async function loadPokemon(id) {
     }
 };
 
-async function setData(id) {
+async function setData(id, pokemonList) {
     return new Promise(()=>{
         const name = document.getElementById('detail_name');
         const type = document.getElementById('type');
@@ -53,12 +53,12 @@ async function setData(id) {
             detail_wrapper.style.visibility = 'visible';
 
             // loading_page.style.display = 'none';
-            image.src = pokemonList[id - 1].img
+            image.src = pokemonList[id].img;
             image.style.width = "400px"
             image.style.height = "400px"
 
             const des = document.getElementById('des');
-            name.innerHTML = koreanNames[id - 1];
+            name.innerHTML = pokemonList[id].name;
             for (let typeName of koreanTypeName) {
                 type.innerText += typeName + `,`;
             }
