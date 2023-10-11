@@ -1,25 +1,27 @@
 
 let pokemonList = [];
 let pokemonDetail = [];
+let page = 0;
 
 /** 포켓몬스터 갤러리 */
 const createGallery = () => {
     const pockemonList = document.getElementById('pokemon_list');
     for (let i = 0; i < pokemonList.length; i++ ){
+        let rId = 30 * (page - 1) + i;
         const id = document.createElement("div");
         id.setAttribute("class", id);
-        id.innerText = `No.${pokemonList[i].id}`;
+        id.innerText = `No.${pokemonList[rId].id}`;
 
         const name = document.createElement("div");
         name.setAttribute("class", name);
-        name.innerText = pokemonList[i].name;
+        name.innerText = pokemonList[rId].name;
 
         const div = document.createElement("div");
         div.setAttribute("class", `pokemon`);
 
         const img = document.createElement("img");
         img.loading = 'lazy'
-        img.src = pokemonList[i].img;
+        img.src = pokemonList[rId].img;
         img.style.width = "120px"
 
         div.style.backgroundColor = "beige"
@@ -30,7 +32,7 @@ const createGallery = () => {
         div.style.alignItems = "center"
         
         div.onclick = () => {
-            detailPageClick(pokemonList[i].id, pokemonList);
+            detailPageClick(pokemonList[rId].id, pokemonList);
         }
         div.onmouseover = () => {
             div.style.translate = "0 -20px"
@@ -51,10 +53,9 @@ const createGallery = () => {
     }
 }
 
-let page = 0;
+
 
 /** 첫 페이지 수행 */
-pokemonList.length = 0;
 callList();
 
 
