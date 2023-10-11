@@ -131,16 +131,27 @@ footer {
     position: absolute;
 }
 
-@media screen and (min-width: 125px) and (max-width: 700px) {
+@media screen and (min-width: 125px) and (max-width: 1000px) {
     .pokemon_list {
         max-width: 1240px;
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+        height: fit-content;
     }
 }
 
-@media screen and (min-width: 700px) and (max-width: 2000px) {
+@media screen and (min-width: 1000px) and (max-width: 1700px) {
+    .pokemon_list {
+        max-width: 1240px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        height: fit-content;
+    }
+}
+
+@media screen and (min-width: 1700px) and (max-width: 2400px) {
     .pokemon_list {
         max-width: 1240px;
         width: 100%;
