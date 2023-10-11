@@ -6,8 +6,11 @@ let page = 0;
 /** 포켓몬스터 갤러리 */
 const createGallery = () => {
     const pockemonList = document.getElementById('pokemon_list');
-    for (let i = 0; i < pokemonList.length; i++ ){
-        let rId = 30 * (page - 1) + i;
+    for (let i = 0; i < 30; i++){
+        let rId = 30 * page + i;
+        if (rId >= 999) {
+            break;
+        }
         const id = document.createElement("div");
         id.setAttribute("class", id);
         id.innerText = `No.${pokemonList[rId].id}`;
@@ -55,35 +58,36 @@ const createGallery = () => {
 
 
 
-/** 첫 페이지 수행 */
 callList();
 
 
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight - 10) {
-        callList();
+        createGallery();
+        page += 1;
     }
 });
 
 
 async function callList() {
     try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=30&offset=${page}`);
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=1000&offset=${page}`);
         const data = response.data.results;
 
         await Promise.all(data.map(async (pokemon, index) => {
-            let rId = 30 * page + index;
+            // let rId = 30 * page + index;
             pokemonList.push(
                 {
-                    id: rId + 1,
-                    name: await callName(rId),
-                    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${rId+1}.png`
+                    id: index + 1,
+                    name: await callName(index + 1),
+                    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
                 }
             )
         }))
-        page += 1;
+        /** 첫 페이지 수행 */
         createGallery();
+        page += 1;
     } catch (error) {
         console.log('끝')
     }
@@ -91,7 +95,7 @@ async function callList() {
 
 
 async function callName(rId) {
-    const response_name = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${rId + 1}`);
+    const response_name = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${rId}`);
     let koreanName;
     koreanName = response_name.data.names.find((name) => name.language.name === "ko").name;
     return koreanName;
