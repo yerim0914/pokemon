@@ -1,3 +1,4 @@
+
 let koreanTypeName = [];
 let pokemonList = [];
 
@@ -77,11 +78,11 @@ async function setData(id, pokemonList) {
 const searchButton = () => {
     const text = document.getElementById("search_text").value;
     const pockemonList = document.getElementById('pokemon_list');
-    // const pockemonSearch = document.getElementById('pokemon_list_search');
-    pockemonList.addEventListener('scroll', () => {
-        e.stopPropagation();
-    })
-    pockemonList.innerHTML = ''
+    pockemonList.remove();
+    const pockemonSearch = document.getElementById('pokemon_list_search');
+    window.removeEventListener('scroll', () => {})
+    
+    pockemonSearch.innerHTML = ''
     pokemonList.find((pokemon) => {
         if (pokemon.name.includes(text)) {
             const id = document.createElement("div");
@@ -125,7 +126,7 @@ const searchButton = () => {
             div.appendChild(id);
             div.appendChild(name);
     
-            pockemonList.appendChild(div);
+            pockemonSearch.appendChild(div);
             // 모듈화된 거 가져와서 셋팅
         }
     })

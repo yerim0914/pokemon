@@ -33,7 +33,7 @@ const createGallery = () => {
         div.style.padding = "20px"
         div.style.alignItems = "center"
         div.style.cursor = "pointer"
-        
+
         div.onclick = () => {
             detailPageClick(pokemonList[rId].id, pokemonList);
         }
@@ -58,9 +58,16 @@ const createGallery = () => {
 
 
 
-callList();
+defaultCallList();
 
 
+const title = document.getElementById('title');
+title.addEventListener('click', () => {
+    location.reload();
+});
+
+// 스크롤 시 html dom 생성
+const pockemonList = document.getElementById('pokemon_list');
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight - 10) {
@@ -69,15 +76,10 @@ window.addEventListener('scroll', () => {
     }
 });
 
-const title = document.getElementById('title');
-title.addEventListener('click', () => {
-    location.reload();
-});
 
-
-async function callList() {
+async function defaultCallList() {
     try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=1010&offset=${page}`);
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=30&offset=${page}`);
         const data = response.data.results;
 
         const promises = (data.map(async (pokemon, index) => {
@@ -90,10 +92,47 @@ async function callList() {
                 }
             )
         }))
-        /** 첫 페이지 수행 */
+        
         const resultData = await Promise.all(promises)
         pokemonList = pokemonList.concat(resultData);
+    
+        /** 첫 페이지 수행 */
         createGallery();
+        callList();
+        page += 1;
+    } catch (error) {
+        console.log('끝')
+    }
+};
+
+async function callList() {
+    try {
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=1010&offset=${0}`);
+        const data = response.data.results;
+
+        // const promises = (data.map(async (pokemon, index) => {
+        //     const name = await callName(index + 1);
+        //     return (
+        //         {
+        //             id: index + 1,
+        //             name,
+        //             img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
+        //         }
+        //     )
+        // }))
+        pokemonList = [];
+        await Promise.all(data.map(async (pokemon, index) => {
+            pokemonList.push(
+                {
+                    id: index + 1,
+                    name: await callName(index + 1),
+                    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
+                }
+            )
+        }))
+    
+        /** 첫 페이지 수행 */
+        // createGallery();
         page += 1;
     } catch (error) {
         console.log('끝')
