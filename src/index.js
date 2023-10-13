@@ -32,6 +32,7 @@ const createGallery = () => {
         div.style.flexDirection = "column"
         div.style.padding = "20px"
         div.style.alignItems = "center"
+        div.style.cursor = "pointer"
         
         div.onclick = () => {
             detailPageClick(pokemonList[rId].id, pokemonList);

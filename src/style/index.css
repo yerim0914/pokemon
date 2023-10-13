@@ -58,6 +58,7 @@ body, html {
     color: aliceblue;
     font-weight: 600;
     font-size: 22px;
+    cursor: pointer;
 }
 
 .list_wrapper {
