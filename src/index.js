@@ -68,23 +68,30 @@ window.addEventListener('scroll', () => {
     }
 });
 
+const title = document.getElementById('title');
+title.addEventListener('click', () => {
+    location.reload();
+});
+
 
 async function callList() {
     try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=1000&offset=${page}`);
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=1010&offset=${page}`);
         const data = response.data.results;
 
-        await Promise.all(data.map(async (pokemon, index) => {
-            // let rId = 30 * page + index;
-            pokemonList.push(
+        const promises = (data.map(async (pokemon, index) => {
+            const name = await callName(index + 1);
+            return (
                 {
                     id: index + 1,
-                    name: await callName(index + 1),
+                    name,
                     img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
                 }
             )
         }))
         /** 첫 페이지 수행 */
+        const resultData = await Promise.all(promises)
+        pokemonList = pokemonList.concat(resultData);
         createGallery();
         page += 1;
     } catch (error) {
@@ -100,7 +107,3 @@ async function callName(rId) {
     return koreanName;
 }
 
-
-// async function search() {
-//     pokemonList
-// }

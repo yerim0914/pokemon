@@ -29,7 +29,8 @@ body, html {
     width: 100%;
     font-size: 100px;
     font-weight: 1000;
-    font-family: "Trebuchet MS"
+    font-family: "Trebuchet MS";
+    cursor: pointer;
 }
 
 .search_wrapper {

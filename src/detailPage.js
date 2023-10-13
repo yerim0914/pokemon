@@ -77,6 +77,10 @@ async function setData(id, pokemonList) {
 const searchButton = () => {
     const text = document.getElementById("search_text").value;
     const pockemonList = document.getElementById('pokemon_list');
+    // const pockemonSearch = document.getElementById('pokemon_list_search');
+    pockemonList.addEventListener('scroll', () => {
+        e.stopPropagation();
+    })
     pockemonList.innerHTML = ''
     pokemonList.find((pokemon) => {
         if (pokemon.name.includes(text)) {
