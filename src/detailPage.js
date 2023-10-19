@@ -2,6 +2,7 @@
 let koreanTypeName = [];
 let pokemonList = [];
 
+
 /** 포켓몬 상세 페이지 */
 async function detailPageClick(id, pokemonList) {
     /* 페이지 전환 */
@@ -78,12 +79,14 @@ async function setData(id, pokemonList) {
 const searchButton = () => {
     const text = document.getElementById("search_text").value;
     const pockemonList = document.getElementById('pokemon_list');
-    pockemonList.remove();
+    if (pockemonList !== null) {
+        pockemonList.remove();
+    }
     const pockemonSearch = document.getElementById('pokemon_list_search');
     window.removeEventListener('scroll', () => {})
     
     pockemonSearch.innerHTML = ''
-    pokemonList.find((pokemon) => {
+    const result = pokemonList.find((pokemon) => {
         if (pokemon.name.includes(text)) {
             const id = document.createElement("div");
             id.setAttribute("class", id);

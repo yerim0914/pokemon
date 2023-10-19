@@ -76,10 +76,11 @@ window.addEventListener('scroll', () => {
     }
 });
 
+const defaultData = 90
 
 async function defaultCallList() {
     try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=30&offset=${page}`);
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=1010&offset=${0}`);
         const data = response.data.results;
 
         const promises = (data.map(async (pokemon, index) => {
@@ -98,7 +99,7 @@ async function defaultCallList() {
     
         /** 첫 페이지 수행 */
         createGallery();
-        callList();
+        // callList();
         page += 1;
     } catch (error) {
         console.log('끝')
@@ -107,26 +108,15 @@ async function defaultCallList() {
 
 async function callList() {
     try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=1010&offset=${0}`);
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=1010&offset=${defaultData}`);
         const data = response.data.results;
 
-        // const promises = (data.map(async (pokemon, index) => {
-        //     const name = await callName(index + 1);
-        //     return (
-        //         {
-        //             id: index + 1,
-        //             name,
-        //             img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
-        //         }
-        //     )
-        // }))
-        pokemonList = [];
         await Promise.all(data.map(async (pokemon, index) => {
             pokemonList.push(
-                {
-                    id: index + 1,
-                    name: await callName(index + 1),
-                    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1}.png`
+                    {
+                    id: index + 1 + defaultData,
+                    name: await callName(index + defaultData + 1),
+                    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index+1+defaultData}.png`
                 }
             )
         }))
