@@ -3,13 +3,21 @@ let pokemonDetail = [];
 let page = 0;
 let pokemonList = [];
 let curPage = 1;
-const defaultDataSize = 90
+const defaultDataSize = 180
+let defaultRenderSize = 30;
+/** 모바일인지 */
+function Mobile(){
+	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);}
 
 /** 포켓몬스터 갤러리 */
 const createGallery = () => {
     const pockemonList = document.getElementById('pokemon_list');
-    for (let i = 0; i < 30; i++){
-        let rId = 30 * page + i;
+    
+    if (Mobile()) {
+        defaultRenderSize = 90;
+    }
+    for (let i = 0; i < defaultRenderSize; i++){
+        let rId = defaultRenderSize * page + i;
         if (rId >= 1010) {
             break;
         }
@@ -69,23 +77,30 @@ title.addEventListener('click', () => {
     location.reload();
 });
 
+const loadingSpinner = document.getElementById('loading-spinner');
+
 // 스크롤 시 html dom 생성
 const pockemonList = document.getElementById('pokemon_list');
 let isFetchingData = false;
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight && !isFetchingData && pokemonList.length !== 0) {
-        isFetchingData = true;
-        createGallery();
-        page += 1;
-        isFetchingData = false;
+    if (scrollTop + clientHeight >= scrollHeight - 10 && !isFetchingData) {
+        if (pokemonList.length > defaultRenderSize * (page + 1)) {
+            loadingSpinner.style.display = 'none';
+            isFetchingData = true;
+            createGallery();
+            page += 1;
+            isFetchingData = false;
+        } else {
+            loadingSpinner.style.display = 'block';
+        }
     }
 });
 
 
 async function defaultCallList() {
     try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=180&offset=${0}`);
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${defaultDataSize}&offset=${0}`);
         const data = response.data.results;
 
         const promises = (data.map(async (pokemon, index) => {
@@ -113,7 +128,7 @@ async function defaultCallList() {
 
 async function callList() {
     try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=830&offset=180`);
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=830&offset=${defaultDataSize}`);
         const data = response.data.results;
 
         // await Promise.all(data.map(async (pokemon, index) => {
@@ -127,7 +142,7 @@ async function callList() {
         // }))
 
         for (let i = 0; i < data.length; i++) {
-            const index = i + 180;
+            const index = i + defaultDataSize;
             const name = await callName(index + 1);
             const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${index + 1}.png`;
             const pokemonData = {
