@@ -1,0 +1,184 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.header {
+    width: 100%;
+    /* height: 200px; */
+    background-color: bisque;
+    align-items: center;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 100px;
+    font-weight: 1000;
+    font-family: "Trebuchet MS";
+    cursor: pointer;
+}
+
+.search_wrapper {
+    padding-top: 25px;
+    width: 100%;
+    height: 130px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.search_text {
+    width: 500px;
+    height: 50px;
+    border: 2px solid black; 
+    border-radius: 5px;   
+}
+
+.search_button {
+    margin-left: 20px;
+    width: 70px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: rgb(48, 18, 18);
+    color: aliceblue;
+    font-weight: 600;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.list_wrapper {
+    width: 100%;
+    display: flex;
+    place-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail_wrapper {
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.detail_header {
+    padding: 30px 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.previous {
+    width: 50px;
+    height: 50px;
+    background: url("../../image/circle-left-solid.svg") no-repeat;
+    border: none;
+}
+
+.description_wrapper {
+    width: 800px;
+    height: 100%;
+    border: 2px solid gray;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;   
+    align-self: center;
+    align-items: center;
+}
+
+.dId {
+    color: darkcyan;
+}
+
+.des {
+    display: flex;
+    flex-direction: column;
+}
+
+.type_wrapper, .height_wrapper, .weight_wrapper {
+    display: flex;
+}
+
+.type_title, .height_title, .weight_title {
+    font-size: 20px;
+    font-weight: 500;
+    padding-right: 15px;
+    width: 100px
+}
+
+.detail_name {
+    font-size: 25px;
+    font-weight: 800;
+    height: 100px;
+}
+
+footer {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+}
+
+.pokemon_list {
+    max-width: 1240px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: fit-content;
+}
+
+@media screen and (min-width: 125px) and (max-width: 1000px) {
+    .pokemon_list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1600px) {
+    .pokemon_list {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 1600px) and (max-width: 2400px) {
+    .pokemon_list {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+  }
+  
+  .spinner-icon {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

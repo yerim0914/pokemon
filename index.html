@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="src/style/index.css">
+    <script type="module" src="src/index.js"></script>
+    <script src="src/prevButton.js"></script>
+    <script src="src/search.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+        <div class="header">
+            <div class="title" id="title">Pokemon</div>
+        </div>
+        <div class="search_wrapper">
+            <input class="search_text" id="search_text">
+            <button class="search_button" id="search" onclick="searchButton()">검색</button>
+        </div>
+        <div class="list_wrapper">
+            <div id="pokemon_list" class="pokemon_list"></div>
+            <div id="pokemon_list_search" class="pokemon_list"></div>
+            <div id="loading-spinner" class="spinner" style="display: none">
+                <div class="spinner-icon"></div>
+            </div>
+        </div>
+    </div>
+    <div class="detail_wrapper" id="detail_wrapper">
+        <div class="detail_header">
+            <button class="previous" onclick="prevPage()"></button>
+        </div>
+        <div class="description_wrapper">
+            <img alt="" id="pkimg" class="pkimg">
+            <div id="dId" class="dId"></div>
+            <div id="detail_name" class="detail_name"></div>
+            <div class="des">
+            <div class="type_wrapper">
+                <span class="type_title">타입</span>
+                <div id="type" class="type"></div>
+            </div>
+            <div class="height_wrapper">
+                <span class="height_title">키</span>
+                <div id="height" class="height"></div>
+            </div>
+            <div class="weight_wrapper">
+                <span class="weight_title">무게</span>
+                <div id="weight" class="wegith"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
